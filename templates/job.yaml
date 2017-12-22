@@ -30,6 +30,9 @@ spec:
         image: "{{ .Values.Image }}:{{ .Values.ImageTag }}"
         name: {{ .Chart.Name }}
         command: ["/exposecontroller"]
-        args: {{ .Values.Args }}
+        args: 
+{{- range .Values.Args }}
+        - {{ . | quote }}
+{{- end }}
       serviceAccountName: {{ .Chart.Name }}
       restartPolicy: Never
